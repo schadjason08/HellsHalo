@@ -14,6 +14,22 @@ public class playerScript : MonoBehaviour {
 
     public Boundary1 boundary;
 
+    public GameObject Shot;
+    public Transform BulletSpawn;
+    public float fireRate;
+
+    private float nextFire;
+
+    void Update(){
+
+        if (Time.time > nextFire){
+
+            nextFire = Time.time + fireRate;
+            Instantiate(Shot, BulletSpawn.position, BulletSpawn.rotation);
+        }
+
+    }
+
 
     void FixedUpdate()
     {
@@ -21,7 +37,7 @@ public class playerScript : MonoBehaviour {
         float moveVertical = Input.GetAxis("Vertical");
 
         var movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
-        var rigidbody = GetComponent<Rigidbody2D>();
+        var rigidbody = GetComponent<Rigidbody>();
         rigidbody.velocity = movement * speed;
 
         rigidbody.position = new Vector3
